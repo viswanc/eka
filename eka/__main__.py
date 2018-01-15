@@ -29,7 +29,8 @@ def main():
       if path.isdir(target_path):
         target_path += '/master.yml'
 
-      print target_path
+      from . import core
+      core.load(target_path)
 
     else:
       show_usage()

@@ -12,12 +12,12 @@ import eka
 
 setup(
 	name='eka',
-	version='0.0.1',
+	version=eka.__version__,
 	url='',
 	download_url='',
 	license='MIT',
-	author='',
-	author_email='',
+	author=eka.__author__,
+	author_email=eka.__email__,
 	description=__doc__,
 	long_description=__doc__,
 	zip_safe=False,
