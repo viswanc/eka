@@ -1,0 +1,6 @@
+---
+calculator:
+  sum:
+    fields:
+      num1: {}
+      result: num1 + num2

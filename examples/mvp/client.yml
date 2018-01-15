@@ -1,0 +1,8 @@
+---
+calculator:
+  sum:
+    fields:
+      num2: {}
+  action:
+    title: 'Sum'
+    action: create
