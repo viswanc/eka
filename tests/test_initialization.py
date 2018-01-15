@@ -24,13 +24,13 @@ class TestInitialization(unittest.TestCase):
 
     self.assertTrue('not found' in str(context.exception))
 
-  def test_verify_config_loading_from_file(self):
+  def test_config_loading_from_file(self):
     r"""
     When a file path is given, the config should be loaded from the file.
     """
     self.assertEquals(type(core.load('%s/master.yml' % mvpPath)), dict)
 
-  def test_verify_config_loading_from_dir(self):
+  def test_config_loading_from_dir(self):
     r"""
     When a dir is given, config should be loaded from master.yml under the dir.
     """

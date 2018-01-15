@@ -19,17 +19,11 @@ def main():
     show_usage()
 
   else:
-    target_path = argv.pop(0)
-
-    if target_path:
-      from . import core
-      core.load(target_path)
-
-    else:
-      show_usage()
+    from eka.core import init
+    init(argv)
 
 def show_usage():
-  print 'Usage:\n\t$ eka (path)'
+  print 'Usage:\n\t$ eka (path) [options]'
 
 if __name__ == '__main__':
   main()

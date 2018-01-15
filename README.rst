@@ -31,3 +31,7 @@ Log
   * 0021  Added linting.
   * 0044  Parsed the config from a file.
   * 0055  Wrote the MVP.
+
+* 180117
+
+  * 1254  Added debugging.

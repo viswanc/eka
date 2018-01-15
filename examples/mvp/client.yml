@@ -1,8 +1,8 @@
 ---
-calculator:
+structure:
   sum:
     fields:
       num2: {}
-  action:
+  calculate:
     title: 'Sum'
     action: create

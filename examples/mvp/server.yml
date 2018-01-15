@@ -1,5 +1,5 @@
 ---
-calculator:
+structure:
   sum:
     fields:
       num1: {}

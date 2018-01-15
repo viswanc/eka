@@ -2,18 +2,35 @@
 Eka - Core.
 """
 from os import path
-import yaml
+
+from eka import state
+from eka.helpers import debug
+from eka.classes.ymlParser import ymlParser
+from eka.classes.master import master
 
 # Helpers
 # None, yet.
 
 # Exports
-def load(target_path):
-  if path.isdir(target_path):
-    target_path += '/master.yml'
+def init(Argv):
+  target_path = Argv.pop(0)
+
+  if '--debug' in Argv:
+    state.debug = True
+
+  if target_path:
+    load(target_path)
+
+def load(targetPath):
+  if path.isdir(targetPath):
+    targetPath += '/master.yml'
 
   else:
-    if not path.isfile(target_path):
-      raise Exception('File not found: %s' % target_path)
+    if not path.isfile(targetPath):
+      raise Exception('File not found: %s' % targetPath)
 
-  return yaml.safe_load(open(target_path, 'r'))
+  base, filePath = path.split(targetPath)
+
+  state.projectRoot = base
+
+  return debug(master(ymlParser(filePath).getConfig()).getConfig())
