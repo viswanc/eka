@@ -21,7 +21,12 @@ Notes
 Log
 ---
 
-* 189115
+* 180115
 
   * 2040  Scaffolded.
   * 2130  Wrote the first test.
+
+* 180116
+
+  * 0021  Added linting.
+  * 0044  Parsed the config from a file.

@@ -40,3 +40,4 @@ htmlcov
 # Exceptions
 !/.editorconfig
 !.git*
+!/.pylintrc

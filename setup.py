@@ -5,7 +5,7 @@ import sys
 from setuptools import setup, find_packages
 
 # Data
-requirements = []
+requirements = ['PyYAML']
 test_requirements = []
 
 import eka

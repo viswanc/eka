@@ -1,2 +1,10 @@
 ---
 # Structure of the MVP.
+structure:
+  type: app
+  components:
+    client:
+      type: app.client
+
+    server:
+      type: app.server

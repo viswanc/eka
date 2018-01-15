@@ -19,16 +19,9 @@ def main():
     show_usage()
 
   else:
-    from os import path
-
     target_path = argv.pop(0)
 
-    sys.argv = sys.argv[:1] + argv # Alter sys.argv so that the modules could process them.
-
     if target_path:
-      if path.isdir(target_path):
-        target_path += '/master.yml'
-
       from . import core
       core.load(target_path)
 
