@@ -1,0 +1,42 @@
+# Python Ignores
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+htmlcov
+
+# Translations
+*.mo
+
+# Standard
+.*
+
+# DevLinks
+**/ec
+
+# Virtual environment
+/venv
+
+# Exceptions
+!/.editorconfig
+!.git*
