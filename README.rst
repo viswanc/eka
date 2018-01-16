@@ -35,3 +35,4 @@ Log
 * 180117
 
   * 1254  Added debugging.
+  * 1813  Basic parsing done.

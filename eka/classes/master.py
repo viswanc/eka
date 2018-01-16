@@ -8,9 +8,14 @@ class master(treeParser):
   def __init__(self, Config):
     treeParser.__init__(self, Config)
 
+  def __addDefaultProperties__(self):
+    Structure = self.__config__.setdefault('structure', {})
+
+    for k, Config in Structure.iteritems():
+      Structure[k].setdefault('namespace', k)
+
   def __parseStructure__(self):
     Structure = self.__config__.get('structure')
 
-    if Structure:
-      for k, Config in Structure.iteritems():
-        Structure[k].update(getClassForType(Config['type'])(Config).getConfig())
+    for k, Config in Structure.iteritems():
+      Structure[k].update(getClassForType(Config['type'])(Config).getConfig())
