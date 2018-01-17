@@ -1,0 +1,8 @@
+---
+# An import from a subdir and a nested import.
+imports:
+  - anotherImport
+  - cyclicImport
+
+structure:
+  name: import

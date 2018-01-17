@@ -1,11 +1,17 @@
 ---
 # Structure of the MVP.
+imports:
+  - client
+  - server
+
 structure:
   calculator:
     type: app
     components:
       client:
+        providers: client
         type: app.client
 
       server:
+        providers: server
         type: app.server

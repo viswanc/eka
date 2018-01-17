@@ -5,8 +5,7 @@ from os import path
 
 from eka import state
 from eka.helpers import debug
-from eka.classes.ymlParser import ymlParser
-from eka.classes.master import master
+from eka.classes.treeParser import treeParser
 
 # Helpers
 # None, yet.
@@ -23,7 +22,7 @@ def init(Argv):
 
 def load(targetPath):
   if path.isdir(targetPath):
-    targetPath += '/master.yml'
+    targetPath += '/treeParser.yml'
 
   else:
     if not path.isfile(targetPath):
@@ -33,4 +32,7 @@ def load(targetPath):
 
   state.projectRoot = base
 
-  return debug(master(ymlParser(filePath).getConfig()).getConfig())
+  return debug(treeParser(filePath, '').getConfig())
+
+def getExternalModulePath(moduleString):
+  return externalModulesRoot + moduleString.replace('.', '/')

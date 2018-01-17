@@ -18,7 +18,13 @@ class app(treeParser):
       Config['namespace'] = namespace + '.' + Config.get('namespace', k)
 
   def __parseStructure__(self):
-    Components = self.__config__['components']
+    ComponentConfigs = self.__config__['components']
+    Components = {}
 
-    for k, Config in Components.iteritems():
-      Components[k] = merge(Config, getClassForType(Config['type'])(ymlParser(Config['path']).getConfig()).getConfig())
+    for k, Config in ComponentConfigs.iteritems():
+      Component = getClassForType(Config['type'])(ymlParser(Config['path'])
+      Components[k] = Component
+      ComponentConfigs[k] = merge(Config, Component.getConfig()).getConfig())
+
+    for k, Component in Components.iteritems():
+      Component.

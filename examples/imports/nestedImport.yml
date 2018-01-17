@@ -1,0 +1,7 @@
+---
+# A file to explain imports.
+imports:
+  - subdir.import
+
+structure:
+  name: nestedImport

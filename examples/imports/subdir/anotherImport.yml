@@ -1,0 +1,4 @@
+---
+# Target of the nested import.
+structure:
+  name: anotherImport

@@ -1,0 +1,4 @@
+---
+# A cyclic import.
+structure:
+  name: cyclicImport

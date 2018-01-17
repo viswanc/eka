@@ -31,8 +31,9 @@ Log
   * 0021  Added linting.
   * 0044  Parsed the config from a file.
   * 0055  Wrote the MVP.
+  * 1254  Added debugging.
+  * 1813  Basic parsing done.
 
 * 180117
 
-  * 1254  Added debugging.
-  * 1813  Basic parsing done.
+  * 2234  Redid the imports.

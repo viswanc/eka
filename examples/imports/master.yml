@@ -1,0 +1,9 @@
+---
+# A file to explain imports.
+imports:
+  - simple
+  - subdir.import
+  - nestedImport
+  - subdir.cyclicImport
+
+structure: {}
