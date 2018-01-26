@@ -3,14 +3,14 @@ The master class for other property parsers to depend upon.
 """
 from os.path import dirname, exists
 
-from eka.helpers import merge
+from eka.helpers import debug, merge
 from eka import state
 from eka.state import Modules
 from eka.classes.ymlParser import ymlParser
 
 class treeParser(object):
-  def __init__(self, filePath, namespace=''):
-    print filePath, namespace
+  def __init__(self, filePath, namespace):
+    debug('importing: %s as %s' % (filePath, namespace))
 
     self.__config__ = Modules[namespace] = ymlParser(filePath).getConfig()
     self.__config__.setdefault('Scopes', [{}])
@@ -22,27 +22,26 @@ class treeParser(object):
     return self.__config__
 
   def __loadImport__(self, moduleString):
-    root = ''
+    modulePath = moduleString.replace('.', '/') + '.yml'
 
     if moduleString[0] == '.': # An initial dot says that the module is a descendant of the projectRoot.
       moduleNamespace = moduleString
+      modulePath = state.projectRoot + modulePath
 
     else:
-      filePath = '%s%s/%s' % (state.projectRoot, self.__moduleDir__, moduleString.replace('.', '/') + '.yml')
+      modulePath = '%s/%s' % (self.__moduleDir__, modulePath)
 
-      if exists(filePath):
+      if exists(modulePath):
         moduleNamespace = '%s.%s' % (self.__namespace__[:self.__namespace__.rfind('.')], moduleString) # This is a relative import.
 
-      else:
-        root = state.externalModulesRoot # This import is from an external package.
+      else: # This import is from an external package.
         moduleNamespace = moduleString
+        modulePath = '%s%s.yml' % (state.externalModulesRoot, moduleNamespace.replace('.', '/'))
 
     if moduleNamespace in Modules:
       return Modules[moduleNamespace]
 
-    modulePath = moduleNamespace.replace('.', '/') + '.yml'
-
-    return treeParser('%s%s' % (root, modulePath), moduleNamespace).getConfig()
+    return treeParser(modulePath, moduleNamespace).getConfig()
 
   def __processImports__(self):
     Config = self.__config__
@@ -53,7 +52,7 @@ class treeParser(object):
 
       Expressions = importExpression.split(' ') # #Pending: Use regex to allow for multiple spaces, may be with a function, normalize.
       moduleString = Expressions[0]
-      importChildren = moduleString[:2] == '.*'
+      importChildren = moduleString[-2:] == '.*'
       expressionCount = len(Expressions)
 
       if expressionCount > 1 and (importChildren or expressionCount != 3 or Expressions[1] != 'as'):
@@ -71,7 +70,7 @@ class treeParser(object):
         GlobalScope = Config['Scopes'][0]
 
         if importChildren:
-          merge(GlobalScope, Imported['structure'])
+          Config['Scopes'][0] = merge(GlobalScope, Imported['structure'])
 
         else:
           moduleName = Expressions[2] if expressionCount > 1 else moduleString[moduleString.rfind('.') + 1:]

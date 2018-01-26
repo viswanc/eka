@@ -11,7 +11,7 @@ class master(treeParser):
   def __addDefaultProperties__(self):
     Structure = self.__config__.setdefault('structure', {})
 
-    for k, Config in Structure.iteritems():
+    for k in Structure.keys():
       Structure[k].setdefault('namespace', k)
 
   def __parseStructure__(self):

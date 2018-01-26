@@ -22,9 +22,9 @@ class app(treeParser):
     Components = {}
 
     for k, Config in ComponentConfigs.iteritems():
-      Component = getClassForType(Config['type'])(ymlParser(Config['path'])
+      Component = getClassForType(Config['type'])(ymlParser(Config['path']))
       Components[k] = Component
-      ComponentConfigs[k] = merge(Config, Component.getConfig()).getConfig())
+      ComponentConfigs[k] = merge(Config, Component.getConfig()).getConfig()
 
-    for k, Component in Components.iteritems():
-      Component.
+    # for k, Component in Components.iteritems():
+    #   Component.

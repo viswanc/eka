@@ -1,7 +1,7 @@
 """
 Helpers
 """
-
+from sys import stderr
 from importlib import import_module
 
 from eka import state
@@ -26,6 +26,6 @@ def merge(*Dicts):
 
 def debug(something):
   if state.debug:
-    print something
+    stderr.write(unicode(something) + u'\n')
 
   return something

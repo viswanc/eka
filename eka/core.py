@@ -22,17 +22,15 @@ def init(Argv):
 
 def load(targetPath):
   if path.isdir(targetPath):
-    targetPath += '/treeParser.yml'
+    targetPath += '/master.yml'
 
   else:
     if not path.isfile(targetPath):
       raise Exception('File not found: %s' % targetPath)
 
-  base, filePath = path.split(targetPath)
+  state.projectRoot = path.dirname(targetPath)
 
-  state.projectRoot = base
-
-  return debug(treeParser(filePath, '').getConfig())
+  return debug(treeParser(targetPath, '.').getConfig())
 
 def getExternalModulePath(moduleString):
-  return externalModulesRoot + moduleString.replace('.', '/')
+  return state.externalModulesRoot + moduleString.replace('.', '/')

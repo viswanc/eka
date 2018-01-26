@@ -3,7 +3,7 @@
 imports:
   - simple
   - subdir.import
-  - nestedImport
-  - subdir.cyclicImport
+  - .nestedImport.*
+  - .subdir.cyclicImport as cyclicImport
 
 structure: {}

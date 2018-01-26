@@ -37,3 +37,8 @@ Log
 * 180117
 
   * 2234  Redid the imports.
+
+* 180127
+
+  * 0224  Bug fixed: Importing children wasn't working.
+  * 0337  Bug fixed: File paths to the YAML parser was passed incorrectly.
