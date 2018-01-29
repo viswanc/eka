@@ -2,6 +2,7 @@ r"""
 Tests the type, app.
 """
 from tests.helpers import BaseTestCase
+from tests.data import TestData
 
 from eka.classes.ymlParser import ymlParser
 from eka.types.app import app
@@ -9,29 +10,21 @@ from eka.helpers import merge
 
 # State
 Buffer = {}
+masterFile = '%s/master.yml' % TestData['projectRoot']
 
 class TestTypeApp(BaseTestCase):
   @classmethod
   def setUpClass(self):
     BaseTestCase.setUpClass()
-    Buffer['Config'] = ymlParser('master.yml').getConfig()
+    Buffer['Config'] = ymlParser(masterFile).getConfig()
     Buffer['app'] = Buffer['Config']['structure']['calculator']
 
   def test_initialization(self):
-    Parsed = app(Buffer['app']).getConfig()
+    Parsed = app(masterFile).getConfig()
 
     self.assertEquals(type(Parsed), dict)
-    self.assertIn('components', Parsed)
+    self.assertIn('components', Parsed['structure']['calculator'])
 
-  def test_path_property_default(self):
-    ModifiedConfig = merge({}, Buffer['app'])
-    del ModifiedConfig['components']['client']['path']
-
-    ParsedFromModifiedConfig = app(ModifiedConfig).getConfig()
-    ParsedFromOriginalConfig = app(Buffer['app']).getConfig()
-
-    self.assertIn('path', ModifiedConfig['components']['client']) # The missing path property should've been filled.
-    self.assertEquals(cmp(ParsedFromModifiedConfig, ParsedFromOriginalConfig), 0) # The built trees should be identical.
 
 if __name__ == '__main__':
   unittest.main()

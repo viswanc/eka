@@ -5,6 +5,7 @@ A class to process structures of type, app.
 from eka.helpers import getClassForType, merge
 from eka.classes.treeParser import treeParser
 from eka.classes.ymlParser import ymlParser
+from eka import state
 
 class app(treeParser):
   def __init__(self, Config):
@@ -14,7 +15,7 @@ class app(treeParser):
     namespace = self.__config__['namespace']
 
     for k, Config in self.__config__['components'].iteritems():
-      Config.setdefault('path', '%s.yml' % k)
+      Config.setdefault('path', '%s/%s.yml' % (state.projectRoot, k))
       Config['namespace'] = namespace + '.' + Config.get('namespace', k)
 
   def __parseStructure__(self):

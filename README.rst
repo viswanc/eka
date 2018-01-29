@@ -18,6 +18,13 @@ Notes
 
 * Though the compiler is written in python, the goal is to allow for the builders to be written in any language. The plan is to build a master structure and pass it to builders. From then on the control is transferred to builders.
 
+Decisions
+---------
+
+* 180129
+
+  * 1950  Decided not to write tests, till the structure is stable or when it's an absolute necessity.
+
 Log
 ---
 
@@ -42,3 +49,7 @@ Log
 
   * 0224  Bug fixed: Importing children wasn't working.
   * 0337  Bug fixed: File paths to the YAML parser was passed incorrectly.
+
+* 180129
+
+  * 1950  Streamlined the tests.

@@ -9,7 +9,7 @@ from eka.state import Modules
 from eka.classes.ymlParser import ymlParser
 
 class treeParser(object):
-  def __init__(self, filePath, namespace):
+  def __init__(self, filePath, namespace='.'):
     debug('importing: %s as %s' % (filePath, namespace))
 
     self.__config__ = Modules[namespace] = ymlParser(filePath).getConfig()
