@@ -1,6 +1,7 @@
 ---
 structure:
-  sum:
-    fields:
-      num1: {}
-      result: num1 + num2
+  resources:
+    sum:
+      fields:
+        num1: {}
+        result: num1 + num2

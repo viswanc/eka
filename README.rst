@@ -53,3 +53,7 @@ Log
 * 180129
 
   * 1950  Streamlined the tests.
+
+* 180130
+
+  * 0103 Introduced nodes and successfully built the master node (tree).

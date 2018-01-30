@@ -1,5 +1,5 @@
-"""
-The master class for other property parsers to depend upon.
+r"""
+A class to process imports to build the namespace tree.
 """
 from os.path import dirname, exists
 
@@ -17,6 +17,8 @@ class treeParser(object):
     self.__moduleDir__ = dirname(filePath)
     self.__namespace__ = namespace
     self.__processImports__()
+    debug('namespace: ' + namespace)
+    debug(self.__config__)
 
   def getConfig(self):
     return self.__config__

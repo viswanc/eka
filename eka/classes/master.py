@@ -1,21 +1,9 @@
+r"""
+The master class for other property parsers to depend upon.
 """
-A class to import config from YAML files.
-"""
-from eka.helpers import getClassForType
-from eka.classes.treeParser import treeParser
 
-class master(treeParser):
+from eka.classes.node import node
+
+class master(node):
   def __init__(self, Config):
-    treeParser.__init__(self, Config)
-
-  def __addDefaultProperties__(self):
-    Structure = self.__config__.setdefault('structure', {})
-
-    for k in Structure.keys():
-      Structure[k].setdefault('namespace', k)
-
-  def __parseStructure__(self):
-    Structure = self.__config__.get('structure')
-
-    for k, Config in Structure.iteritems():
-      Structure[k].update(getClassForType(Config['type'])(Config).getConfig())
+    node.__init__(self, Config['Scopes'], Config['structure'])

@@ -1,10 +1,11 @@
-"""
+r"""
 Eka - Core.
 """
 from os import path
 
 from eka import state
 from eka.helpers import debug
+from eka.classes.master import master
 from eka.classes.treeParser import treeParser
 
 # Helpers
@@ -30,7 +31,7 @@ def load(targetPath):
 
   state.projectRoot = path.dirname(targetPath)
 
-  return debug(treeParser(targetPath, '.').getConfig())
+  return debug(master(treeParser(targetPath, '.').getConfig()).getStructure())
 
 def getExternalModulePath(moduleString):
   return state.externalModulesRoot + moduleString.replace('.', '/')

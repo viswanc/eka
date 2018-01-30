@@ -1,9 +1,9 @@
-"""
+r"""
 A class to process structures of type, app.server.
 """
 
-from eka.classes.treeParser import treeParser
+from eka.classes.node import node
 
-class server(treeParser):
-  def __init__(self, Config):
-    treeParser.__init__(self, Config)
+class server(node):
+  def __init__(self, Scopes, Structure):
+    node.__init__(self, Scopes, Structure, 'resources')

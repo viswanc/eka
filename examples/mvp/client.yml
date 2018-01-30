@@ -3,10 +3,11 @@ imports:
   - 'server'
 
 structure:
-  sum:
-    value: server.sum
-    fields:
-      num2: {}
-  calculate:
-    title: 'Sum'
-    action: create
+  elements:
+    sum:
+      value: server.sum
+      fields:
+        num2: {}
+    calculate:
+      title: 'Sum'
+      action: create

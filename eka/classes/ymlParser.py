@@ -1,4 +1,4 @@
-"""
+r"""
 A class to import config from YAML files.
 """
 import io
