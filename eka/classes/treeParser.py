@@ -18,7 +18,7 @@ class treeParser(object):
     self.__namespace__ = namespace
     self.__processImports__()
     debug('namespace: ' + namespace)
-    debug(self.__config__)
+    debug(self.__config__, True)
 
   def getConfig(self):
     return self.__config__

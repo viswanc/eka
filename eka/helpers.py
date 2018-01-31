@@ -12,7 +12,6 @@ def getClassForType(type):
 
 def merge(*Dicts):
   Base = Dicts[0] # #Note: The base dict gets altered.
-
   for Dict in Dicts[1:]:
     for k, v in Dict.iteritems():
       target = Base.get(k)
@@ -24,8 +23,12 @@ def merge(*Dicts):
 
   return Base
 
-def debug(something):
+def debug(something, prettify=False):
   if state.debug:
-    stderr.write(unicode(something) + u'\n')
+    stderr.write(unicode(getYAMLDump(something) if prettify else something) + u'\n')
 
   return something
+
+def getYAMLDump(Data):
+  from eka.classes.ymlParser import ymlParser
+  return ymlParser().getDump(Data)

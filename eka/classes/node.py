@@ -22,7 +22,8 @@ class node(object):
     Providers = Structure.get('providers')
 
     if Providers:
-      merge(Structure, *getProviders(Scopes, Providers if not isinstance(Providers, list) else [Providers]))
+      merge(Structure, *getProviders(Scopes, Providers if isinstance(Providers, list) else [Providers]))
+      del Structure['providers']
 
   def __standardizeProperties__(self):
     r"""This could be overrode by the child classes.

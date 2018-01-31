@@ -59,3 +59,5 @@ Log
   * 0103  Introduced nodes and successfully built the master node (tree).
   * 1219  Added types app.client.element and app.server.resource.
   * 1909  Restructured the processing of nodes.
+  * 2005  Introduced ordered parsing of the configs.
+  * 2029  Bug fixed: Structures weren't properly updated with providers.

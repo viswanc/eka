@@ -30,8 +30,7 @@ def load(targetPath):
       raise Exception('File not found: %s' % targetPath)
 
   state.projectRoot = path.dirname(targetPath)
-
-  return debug(master(treeParser(targetPath, '.').getConfig()).getStructure())
+  return debug(master(treeParser(targetPath, '.').getConfig()).getStructure(), True)
 
 def getExternalModulePath(moduleString):
   return state.externalModulesRoot + moduleString.replace('.', '/')
