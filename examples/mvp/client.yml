@@ -13,3 +13,5 @@ structure:
         calculate:
           title: 'Sum'
           action: create
+
+  uiRoot: sum

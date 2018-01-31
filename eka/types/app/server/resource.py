@@ -6,11 +6,12 @@ from eka.classes.node import node
 
 class resource(node):
   def __init__(self, Scopes, Structure):
-    node.__init__(self, Scopes, Structure, Structure.get('fields'))
+    node.__init__(self, Scopes, Structure)
+    self.__processBranches__(Structure.get('fields'))
 
-  def __addDefaultProperties__(self):
+  def __standardizeProperties__(self):
     Branches = self.Structure.get('fields', {})
 
     for name, Branch in Branches.iteritems():
-      if not isinstance(Branch, dict):
+      if not hasattr(Branch, 'iteritems'):
         Branches[name] = {'value': Branch}

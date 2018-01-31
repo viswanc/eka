@@ -1,42 +1,41 @@
 r"""
 The base class for other property parsers to depend upon.
 """
-from os.path import dirname, exists
 
 from eka.helpers import merge
 from eka.helpers import getClassForType
 
-def resolve(Scopes, providerName):
+def resolve(Scopes, providerName): # #pylint: disable=R1710
   for Scope in Scopes:
     if providerName in Scope:
       return Scope[providerName]
 
 def getProviders(Scopes, Providers):
-  return filter(lambda val: val is not None, [resolve(Scopes, provider) for provider in Providers])
+  return [val for val in [resolve(Scopes, provider) for provider in Providers] if val is not None]
 
 class node(object):
-  def __init__(self, Scopes, Structure, Branches=None):
+  def __init__(self, Scopes, Structure):
     self.Structure = Structure
-    self.__addDefaultProperties__()
+    self.Scopes = Scopes
+    self.__standardizeProperties__()
 
-    for name, Branch in (Branches or {}).iteritems():
-      Branches[name] = self.__processBranch__(Branch, Scopes)
+    Providers = Structure.get('providers')
 
-  def __addDefaultProperties__(self):
+    if Providers:
+      merge(Structure, *getProviders(Scopes, Providers if not isinstance(Providers, list) else [Providers]))
+
+  def __standardizeProperties__(self):
     r"""This could be overrode by the child classes.
     """
     pass
 
-  def __processBranch__(self, Branch, Scopes):
-    Providers = Branch.get('providers')
+  def __processBranches__(self, Branches, branchType=None):
+    for Branch in (Branches or {}).values():
+      if branchType and 'type' not in Branch:
+        Branch['type'] = branchType
 
-    if Providers:
-      Branch = merge(Branch, *getProviders(Scopes, [Providers] if type(Providers) != list else Providers))
-
-    if 'type' in Branch:
-      Branch.update(getClassForType(Branch['type'])(Scopes, Branch).getStructure())
-
-    return Branch
+      if 'type' in Branch:
+        Branch.update(getClassForType(Branch['type'])(self.Scopes, Branch).getStructure())
 
   def getStructure(self):
     return self.Structure

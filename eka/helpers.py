@@ -11,18 +11,18 @@ def getClassForType(type):
   return getattr(import_module('.types.' + type, package='eka'), type[type.rfind('.') + 1:])
 
 def merge(*Dicts):
-  Ret = {}
+  Base = Dicts[0] # #Note: The base dict gets altered.
 
-  for Dict in Dicts:
+  for Dict in Dicts[1:]:
     for k, v in Dict.iteritems():
-      target = Ret.get(k)
+      target = Base.get(k)
 
       if hasattr(target, 'iteritems') and hasattr(v, 'iteritems'):
-        Ret[k] = merge(target, v)
+        Base[k] = merge(target, v)
       else:
-        Ret[k] = v
+        Base[k] = v
 
-  return Ret
+  return Base
 
 def debug(something):
   if state.debug:
