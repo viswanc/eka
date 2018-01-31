@@ -1,9 +1,7 @@
 r"""
 The base class for other property parsers to depend upon.
 """
-
 from eka.helpers import merge
-from eka.helpers import getClassForType
 
 def resolve(Scopes, providerName): # #pylint: disable=R1710
   for Scope in Scopes:
@@ -36,7 +34,10 @@ class node(object):
         Branch['type'] = branchType
 
       if 'type' in Branch:
-        Branch.update(getClassForType(Branch['type'])(self.Scopes, Branch).getStructure())
+        Branch.update(getType(Branch['type'])(self.Scopes, Branch).getStructure())
 
   def getStructure(self):
     return self.Structure
+
+# Late imports
+from eka.types import getType

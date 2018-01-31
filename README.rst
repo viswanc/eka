@@ -61,3 +61,4 @@ Log
   * 1909  Restructured the processing of nodes.
   * 2005  Introduced ordered parsing of the configs.
   * 2029  Bug fixed: Structures weren't properly updated with providers.
+  * 2307  Collected the types under a single file, for convenience.

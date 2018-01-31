@@ -1,6 +1,7 @@
 r"""
 Tests the class, ymlParser.
 """
+import unittest
 from tests.helpers import BaseTestCase
 from tests.data import TestData
 
