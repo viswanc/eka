@@ -3,5 +3,6 @@ structure:
   resources:
     sum:
       fields:
-        num1: {}
-        result: num1 + num2
+        num1: 1
+        num2: {}
+        result: num1 + num2 # Expressions are readOnly and public by default.

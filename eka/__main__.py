@@ -9,8 +9,8 @@ Example:
   $ eka script.py [...]
 
   $ python -m eka script.py [...]
-
 """
+
 def main():
   import sys
   argv = sys.argv[1:]

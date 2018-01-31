@@ -56,4 +56,5 @@ Log
 
 * 180130
 
-  * 0103 Introduced nodes and successfully built the master node (tree).
+  * 0103  Introduced nodes and successfully built the master node (tree).
+  * 1219  Added types app.client.element and app.server.resource.

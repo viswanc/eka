@@ -15,14 +15,19 @@ def getProviders(Scopes, Providers):
   return filter(lambda val: val is not None, [resolve(Scopes, provider) for provider in Providers])
 
 class node(object):
-  def __init__(self, Scopes, Structure, branchProperty=None):
+  def __init__(self, Scopes, Structure, Branches=None):
     self.Structure = Structure
-    Branches = (Structure[branchProperty] if branchProperty else Structure)
+    self.__addDefaultProperties__()
 
-    for name, Branch in Branches.iteritems():
-      Branches[name] = self.processBranch(Branch, Scopes)
+    for name, Branch in (Branches or {}).iteritems():
+      Branches[name] = self.__processBranch__(Branch, Scopes)
 
-  def processBranch(self, Branch, Scopes):
+  def __addDefaultProperties__(self):
+    r"""This could be overrode by the child classes.
+    """
+    pass
+
+  def __processBranch__(self, Branch, Scopes):
     Providers = Branch.get('providers')
 
     if Providers:

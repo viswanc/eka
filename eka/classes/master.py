@@ -6,4 +6,8 @@ from eka.classes.node import node
 
 class master(node):
   def __init__(self, Config):
-    node.__init__(self, Config['Scopes'], Config['structure'])
+    node.__init__(self, Config['Scopes'], Config['structure'], Config['structure'])
+
+  def __addDefaultProperties__(self):
+    for Branch in self.Structure.values():
+      Branch['type'] = 'app'

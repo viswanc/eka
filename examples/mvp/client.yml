@@ -6,8 +6,10 @@ structure:
   elements:
     sum:
       value: server.sum
-      fields:
+      elements:
+        num1: {}
         num2: {}
-    calculate:
-      title: 'Sum'
-      action: create
+        result: {}
+        calculate:
+          title: 'Sum'
+          action: create

@@ -80,6 +80,3 @@ class treeParser(object):
 
   def __processAliases__(self):
     pass
-
-  def __parseStructure__(self):
-    pass
