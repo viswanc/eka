@@ -5,6 +5,8 @@ The master class for other property parsers to depend upon.
 from eka.classes.node import node
 
 class master(node):
+  __type__ = 'master'
+
   def __init__(self, Config):
     node.__init__(self, Config['Scopes'], Config['structure'])
-    self.__processBranches__(Config['structure'], 'app')
+    self.__processBranches__(Config['structure'].get('apps'), 'app')

@@ -5,13 +5,14 @@ imports:
   - server
 
 structure:
-  calculator:
-    type: app
-    components:
-      client:
-        providers: client
-        type: app.client
+  apps:
+    calculator:
+      type: app
+      components:
+        client:
+          providers: client
+          type: app.client
 
-      server:
-        providers: server
-        type: app.server
+        server:
+          providers: server
+          type: app.server

@@ -15,6 +15,7 @@ class node(object):
   def __init__(self, Scopes, Structure):
     self.Structure = Structure
     self.Scopes = Scopes
+    self.__addDefaultProperties__()
     self.__standardizeProperties__()
 
     Providers = Structure.get('providers')
@@ -23,18 +24,20 @@ class node(object):
       merge(Structure, *getProviders(Scopes, Providers if isinstance(Providers, list) else [Providers]))
       del Structure['providers']
 
+  def __addDefaultProperties__(self):
+    r"""
+    """
+    if not 'type' in self.Structure:
+      self.Structure['type'] = self.__type__
+
   def __standardizeProperties__(self):
     r"""This could be overrode by the child classes.
     """
     pass
 
-  def __processBranches__(self, Branches, branchType=None):
-    for Branch in (Branches or {}).values():
-      if branchType and 'type' not in Branch:
-        Branch['type'] = branchType
-
-      if 'type' in Branch:
-        Branch.update(getType(Branch['type'])(self.Scopes, Branch).getStructure())
+  def __processBranches__(self, Branches, defaultBranchType=None):
+    for name, Branch in (Branches or {}).iteritems():
+      Branches[name] = getType(defaultBranchType or Branch['type'])(self.Scopes, Branch).getStructure()
 
   def getStructure(self):
     return self.Structure

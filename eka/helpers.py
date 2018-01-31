@@ -19,6 +19,9 @@ def merge(*Dicts):
 
   return Base
 
+def isMap(object):
+  return hasattr(object, 'iteritems')
+
 def debug(something, prettify=False):
   if state.debug:
     stderr.write(unicode(getYAMLDump(something) if prettify else something) + u'\n')

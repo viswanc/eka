@@ -3,13 +3,18 @@ The root of all types.
 """
 
 from eka.classes.node import node
+from eka.helpers import isMap
 
 # State
 __Types__ = {}
 
 # Helpers
+def assign(typeName, Type):
+  Type.__type__ = typeName
+  __Types__[typeName] = Type
+
 def define(typeName):
-  return lambda Type: __Types__.update({typeName: Type})
+  return lambda Type: assign(typeName, Type)
 
 # Exports
 def getType(typeName):
@@ -54,11 +59,15 @@ class resource(node):
   """
   def __init__(self, Scopes, Structure):
     node.__init__(self, Scopes, Structure)
-    self.__processBranches__(Structure.get('fields'))
+    self.__processBranches__(Structure.get('fields'), 'app.server.resource.field')
 
-  def __standardizeProperties__(self):
-    Branches = self.Structure.get('fields', {})
+@define('app.server.resource.field')
+class field(node):
+  r"""A class to process structures of type, app.server.resource.field.
+  """
+  def __init__(self, Scopes, Structure):
+    if not isMap(Structure):
+      Structure = {'value': Structure}
 
-    for name, Branch in Branches.iteritems():
-      if not hasattr(Branch, 'iteritems'):
-        Branches[name] = {'value': Branch}
+    node.__init__(self, Scopes, Structure)
+    self.__processBranches__(Structure.get('fields'), 'app.server.resource.field')

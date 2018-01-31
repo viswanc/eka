@@ -62,3 +62,7 @@ Log
   * 2005  Introduced ordered parsing of the configs.
   * 2029  Bug fixed: Structures weren't properly updated with providers.
   * 2307  Collected the types under a single file, for convenience.
+
+* 180131
+
+  * 0019  Redid node parsing.
