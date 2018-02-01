@@ -16,3 +16,4 @@ structure:
         server:
           providers: server
           type: app.server
+          builder: 'falcon'

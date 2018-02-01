@@ -10,7 +10,8 @@ __Types__ = {}
 
 # Helpers
 def assign(typeName, Type):
-  Type.__type__ = typeName
+  Type.__DefaultProperties__ = DP = getattr(Type, '__DefaultProperties__', {})
+  DP['type'] = typeName
   __Types__[typeName] = Type
 
 def define(typeName):
@@ -57,9 +58,31 @@ class server(node):
 class resource(node):
   r"""A class to process structures of type, app.server.resource.
   """
+  __DefaultProperties__ = {
+
+    'permissions': 'crud',
+  }
+
+  __Data__ = {
+
+    'permissions': {
+
+      'all': 'crud',
+      'none': ''
+    }
+  }
+
   def __init__(self, Scopes, Structure):
     node.__init__(self, Scopes, Structure)
     self.__processBranches__(Structure.get('fields'), 'app.server.resource.field')
+
+  def __standardizeProperties__(self):
+    Structure = self.Structure
+    Data = self.__Data__
+
+    if isinstance(Structure['permissions'], basestring):
+      Structure['permissions'] = Data['permissions'].get(Structure['permissions'], Structure['permissions'])
+
 
 @define('app.server.resource.field')
 class field(node):

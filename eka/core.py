@@ -19,7 +19,7 @@ def init(Argv):
     state.debug = True
 
   if target_path:
-    load(target_path)
+    build(target_path)
 
 def load(targetPath):
   if path.isdir(targetPath):
@@ -31,6 +31,11 @@ def load(targetPath):
 
   state.projectRoot = path.dirname(targetPath)
   return debug(master(treeParser(targetPath, '.').getConfig()).getStructure(), True)
+
+def build(targetPath):
+  from eka.classes.builder import Builder
+
+  Builder(load(targetPath)).build()
 
 def getExternalModulePath(moduleString):
   return state.externalModulesRoot + moduleString.replace('.', '/')

@@ -11,6 +11,8 @@ Idea
 ToDo
 ----
 
+* Complete the requirements file.
+
 * Write an MVP.
 
 Notes
@@ -66,3 +68,7 @@ Log
 * 180131
 
   * 0019  Redid node parsing.
+
+* 180202
+
+  * 0440  Wrote the first builder.

@@ -2,10 +2,21 @@ r"""
 Helpers
 """
 from sys import stderr
+import io
 
 from eka import state
 
 # Exports
+## FileSys
+def readFile(filePath):
+	with io.open(filePath, 'r', encoding='utf8') as f:
+		return f.read()
+
+def writeFile(filePath, data):
+	with io.open(filePath, 'w', encoding='utf8') as f:
+		f.write(unicode(data))
+
+## Utils
 def merge(*Dicts):
   Base = Dicts[0] # #Note: The base dict gets altered.
   for Dict in Dicts[1:]:

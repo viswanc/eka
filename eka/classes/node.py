@@ -27,8 +27,9 @@ class node(object):
   def __addDefaultProperties__(self):
     r"""
     """
-    if not 'type' in self.Structure:
-      self.Structure['type'] = self.__type__
+    for k, v in self.__DefaultProperties__.iteritems():
+      if not k in self.Structure:
+        self.Structure[k] = v
 
   def __standardizeProperties__(self):
     r"""This could be overrode by the child classes.
