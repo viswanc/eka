@@ -56,7 +56,7 @@ Log
 
   * 1950  Streamlined the tests.
 
-* 180130
+* 180131
 
   * 0103  Introduced nodes and successfully built the master node (tree).
   * 1219  Added types app.client.element and app.server.resource.
@@ -65,10 +65,13 @@ Log
   * 2029  Bug fixed: Structures weren't properly updated with providers.
   * 2307  Collected the types under a single file, for convenience.
 
-* 180131
+* 180201
 
   * 0019  Redid node parsing.
 
 * 180202
 
   * 0440  Wrote the first builder.
+  * 2018  Added a primitive JSON schema.
+  * 2340  Improved the master schema.
+  * 2345  Started validating the parsed structure.

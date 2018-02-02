@@ -1,0 +1,134 @@
+---
+# #Note: The document
+# #Pending: Add descriptions, where necessary.
+
+$id: http://example.com/example.json
+$schema: http://json-schema.org/draft-04/schema#
+description: The master schema for Eka documents.
+type: object
+
+definitions:
+  providable:
+    providers:
+      type: [string, array]
+  app:
+    allOf:
+      - $ref: '#/definitions/providable'
+      - type: object
+        properties:
+          type:
+            # #Note: The key, const isn't available in draft 4.
+            enum: [app]
+            default: app
+          components:
+            type: object
+            patternProperties:
+              '^([A-z0-9_-])+$':
+                anyOf:
+                  - $ref: '#/definitions/app.client'
+                  - $ref: '#/definitions/app.server'
+
+  app.client:
+    allOf:
+      - $ref: '#/definitions/providable'
+      - type: object
+        properties:
+          type:
+            enum: [app.client]
+            default: app.client
+          buildBase:
+            type: string
+          uiRoot:
+            type: string
+          elements:
+            type: object
+            patternProperties:
+              '^([A-z0-9_-])+$':
+                $ref: '#/definitions/app.client.element'
+
+  app.client.element:
+      allOf:
+        - $ref: '#/definitions/providable'
+        - type: object
+          properties:
+            type:
+              enum: [app.client.element]
+              default: app.client.element
+            value:
+              type: string
+            elements:
+              patternProperties:
+                '^([A-z0-9_-])+$':
+                  anyOf:
+                    - $ref: '#/definitions/app.client.element'
+                    - $ref: '#/definitions/app.client.element.button'
+
+  app.client.element.button:
+    allOf:
+      - $ref: '#/definitions/providable'
+      - type: object
+        properties:
+          title:
+            type: string
+          action:
+            type: string
+          type:
+            enum: [app.client.element.button]
+            default: app.client.element.button
+
+  app.server:
+    allOf:
+      - $ref: '#/definitions/providable'
+      - type: object
+        properties:
+          type:
+            enum: [app.server]
+            default: app.server
+          builder:
+            type: string
+          buildBase:
+            type: string
+          resources:
+            type: object
+            patternProperties:
+              '^([A-z0-9_-])+$':
+                $ref: '#/definitions/app.server.resource'
+
+  app.server.resource:
+    allOf:
+      - $ref: '#/definitions/providable'
+      - type: object
+        properties:
+          type:
+            enum: [app.server.resource]
+            default: app.server.resource
+          permissions:
+            type: string
+            default: crud
+            pattern: '^[crud]+|all|none$'
+          fields:
+            type: object
+            patternProperties:
+              '^([A-z0-9_-])+$':
+                $ref: '#/definitions/app.server.resource.field'
+
+  app.server.resource.field:
+      allOf:
+        - $ref: '#/definitions/providable'
+        - type: object
+          properties:
+            type:
+              enum: [app.server.resource.field]
+              default: app.server.resource.field
+            value:
+              type: [integer, string]
+
+properties:
+  apps:
+    type: object
+    patternProperties:
+      '^([A-z0-9_-])+$':
+        $ref: '#/definitions/app'
+  type:
+    enum: [master]
+    default: master
