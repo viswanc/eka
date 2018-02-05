@@ -5,10 +5,10 @@ imports:
   - server
 
 structure:
-  apps:
+  props:
     calculator:
       type: app
-      components:
+      props:
         client:
           providers: client
           type: app.client

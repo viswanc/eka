@@ -3,10 +3,10 @@ imports:
   - 'server'
 
 structure:
-  elements:
+  props:
     sum:
       value: server.sum
-      elements:
+      props:
         num1: {}
         num2: {}
         result: {}

@@ -23,7 +23,7 @@ def main():
     init(argv)
 
 def show_usage():
-  print 'Usage:\n\t$ eka (path) [options]'
+  print 'Usage:\n\t$ eka [command] [config_path] <options...>'
 
 if __name__ == '__main__':
   main()

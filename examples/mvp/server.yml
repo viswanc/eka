@@ -1,8 +1,8 @@
 ---
 structure:
-  resources:
+  props:
     sum:
-      fields:
+      props:
         num1: 1
         num2: {}
-        result: num1 + num2 # Expressions are readOnly and public by default.
+        result: num1 + num2

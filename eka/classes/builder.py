@@ -21,8 +21,8 @@ class Builder(object):
     self.Structure = Structure
 
   def build(self):
-    for App in self.Structure['apps'].values():
-      for Component in App['components'].values():
+    for App in self.Structure['props'].values():
+      for Component in App['props'].values():
         self.buildComponent(Component)
 
   def buildComponent(self, Component):

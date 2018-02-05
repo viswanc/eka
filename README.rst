@@ -27,6 +27,10 @@ Decisions
 
   * 1950  Decided not to write tests, till the structure is stable or when it's an absolute necessity.
 
+* 180205
+
+  * 1930  Decided to replace custom properties, per type to collect children (ex: app.server.resources), with a standard property, named - *props*. This essentially is to reduce the learning curve and to eliminate the need for choosing, a name per type (while writing extensions). Hence, custom properties had been removed, duck typing couldn't be done. Instead, types are to be set, through the property, *type*.
+
 Log
 ---
 
@@ -73,5 +77,15 @@ Log
 
   * 0440  Wrote the first builder.
   * 2018  Added a primitive JSON schema.
+  * 2200  Decided to use JSON Schema Draft 4, across the project, as it's the latest version, that's supported by multiple languages.
   * 2340  Improved the master schema.
   * 2345  Started validating the parsed structure.
+
+* 180203
+
+  * 0002  Decided to have case-sensitive values, as it simplifies the flow.
+
+* 180205
+
+  * 1840  Introduced commands (parse and build, instead of build as default), to ease development.
+  * 2125  Started using the masterSchema, to modify the structure (for setting default values).

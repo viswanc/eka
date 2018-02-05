@@ -1,6 +1,6 @@
 import falcon
 api = falcon.API()
-{% for name, resource in resources.iteritems() %}
+{% for name, prop in props.iteritems() %}
 class {{ name }}:
   def on_get(self, req, resp):
     resp.media = '{{ name }}'

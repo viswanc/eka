@@ -24,24 +24,37 @@ def load(targetPath):
   state.projectRoot = dirname(targetPath)
   return debug(master(treeParser(targetPath, '.').getConfig()).getStructure(), True)
 
-def validateStructure(Data):
-  from jsonschema import validate
+# def parse(targetPath):
+#   from jsonschema import validate
+#
+#   Data = load(targetPath)
+#   validate(Data, ymlParser('%s/data/masterSchema.yml' % dirname(abspath(__file__))).getConfig())
+#   print ymlParser().getDump(load(targetPath))
+#
+#   return Data
 
-  validate(Data, ymlParser('%s/data/masterSchema.yml' % dirname(abspath(__file__))).getConfig())
+def parse(targetPath):
+  from eka.classes.jsonSchemaExtender import ExtendedDraft4Validator
+
+  Data = load(targetPath)
+  ExtendedDraft4Validator(ymlParser('%s/data/masterSchema.yml' % dirname(abspath(__file__))).getConfig()).validate(Data)
+  print ymlParser().getDump(Data)
+  return Data
 
 def build(targetPath):
   from eka.classes.builder import Builder
-
-  print ymlParser().getDump(load(targetPath))
-
-  Builder(load(targetPath)).build()
+  Builder(parse(targetPath)).build()
 
 # Exports
 def init(Argv):
-  target_path = Argv.pop(0)
+  command = Argv[0]
+  targetPath = Argv[1]
 
   if '--debug' in Argv:
     state.debug = True
 
-  if target_path:
-    build(target_path)
+  if command == 'build':
+    build(targetPath)
+
+  elif command == 'parse':
+    parse(targetPath)

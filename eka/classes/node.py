@@ -15,33 +15,26 @@ class node(object):
   def __init__(self, Scopes, Structure):
     self.Structure = Structure
     self.Scopes = Scopes
-    self.__addDefaultProperties__()
     self.__standardizeProperties__()
+
+    if not hasattr(Structure, 'iteritems'):
+      return
 
     Providers = Structure.get('providers')
 
     if Providers:
       merge(Structure, *getProviders(Scopes, Providers if isinstance(Providers, list) else [Providers]))
-      del Structure['providers']
+      # del Structure['providers'] # #ToDo: Remove the providers. It isn't done as of now, as the master schema doesn't allow for missing providers.
 
-  def __addDefaultProperties__(self):
-    r"""
-    """
-    for k, v in self.__DefaultProperties__.iteritems():
-      if not k in self.Structure:
-        self.Structure[k] = v
+    Props = self.Structure.get('props', {})
+
+    for name, Prop in Props.iteritems():
+      Props[name] = node(self.Scopes, Prop).getStructure()
 
   def __standardizeProperties__(self):
     r"""This could be overrode by the child classes.
     """
     pass
 
-  def __processBranches__(self, Branches, defaultBranchType=None):
-    for name, Branch in (Branches or {}).iteritems():
-      Branches[name] = getType(defaultBranchType or Branch['type'])(self.Scopes, Branch).getStructure()
-
   def getStructure(self):
     return self.Structure
-
-# Late imports
-from eka.types import getType

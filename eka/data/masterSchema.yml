@@ -1,8 +1,8 @@
 ---
-# #Note: The document
+# #Note: The document follows an extended version OF JSON-Schema Draft 4.
 # #Pending: Add descriptions, where necessary.
 
-$id: http://example.com/example.json
+$id: eka-v1.json # http://example.com/eka-v1.json
 $schema: http://json-schema.org/draft-04/schema#
 description: The master schema for Eka documents.
 type: object
@@ -11,6 +11,7 @@ definitions:
   providable:
     providers:
       type: [string, array]
+
   app:
     allOf:
       - $ref: '#/definitions/providable'
@@ -20,7 +21,7 @@ definitions:
             # #Note: The key, const isn't available in draft 4.
             enum: [app]
             default: app
-          components:
+          props:
             type: object
             patternProperties:
               '^([A-z0-9_-])+$':
@@ -40,7 +41,7 @@ definitions:
             type: string
           uiRoot:
             type: string
-          elements:
+          props:
             type: object
             patternProperties:
               '^([A-z0-9_-])+$':
@@ -56,7 +57,7 @@ definitions:
               default: app.client.element
             value:
               type: string
-            elements:
+            props:
               patternProperties:
                 '^([A-z0-9_-])+$':
                   anyOf:
@@ -88,7 +89,7 @@ definitions:
             type: string
           buildBase:
             type: string
-          resources:
+          props:
             type: object
             patternProperties:
               '^([A-z0-9_-])+$':
@@ -105,8 +106,8 @@ definitions:
           permissions:
             type: string
             default: crud
-            pattern: '^[crud]+|all|none$'
-          fields:
+            pattern: '^[crud]+|all|none|$'
+          props:
             type: object
             patternProperties:
               '^([A-z0-9_-])+$':
@@ -115,16 +116,18 @@ definitions:
   app.server.resource.field:
       allOf:
         - $ref: '#/definitions/providable'
-        - type: object
-          properties:
-            type:
-              enum: [app.server.resource.field]
-              default: app.server.resource.field
-            value:
-              type: [integer, string]
+        - anyOf:
+          - type: [integer, string]
+          - type: object
+            properties:
+                type:
+                  enum: [app.server.resource.field]
+                  default: app.server.resource.field
+                value:
+                  type: [integer, string]
 
 properties:
-  apps:
+  props:
     type: object
     patternProperties:
       '^([A-z0-9_-])+$':
