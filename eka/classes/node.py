@@ -24,7 +24,6 @@ class node(object):
 
     if Providers:
       merge(Structure, *getProviders(Scopes, Providers if isinstance(Providers, list) else [Providers]))
-      # del Structure['providers'] # #ToDo: Remove the providers. It isn't done as of now, as the master schema doesn't allow for missing providers.
 
     Props = self.Structure.get('props', {})
 

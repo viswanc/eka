@@ -7,13 +7,13 @@ imports:
 structure:
   props:
     calculator:
-      type: app
+      class: rest.app
       props:
         client:
           providers: client
-          type: app.client
+          class: rest.client
 
         server:
           providers: server
-          type: app.server
-          builder: 'falcon'
+          class: rest.server
+          builder: falcon

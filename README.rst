@@ -20,6 +20,11 @@ Notes
 
 * Though the compiler is written in python, the goal is to allow for the builders to be written in any language. The plan is to build a master structure and pass it to builders. From then on the control is transferred to builders.
 
+Later
+-----
+
+* Allow for web imports. They should be cacheable for ever.
+
 Decisions
 ---------
 
@@ -30,6 +35,12 @@ Decisions
 * 180205
 
   * 1930  Decided to replace custom properties, per type to collect children (ex: app.server.resources), with a standard property, named - *props*. This essentially is to reduce the learning curve and to eliminate the need for choosing, a name per type (while writing extensions). Hence, custom properties had been removed, duck typing couldn't be done. Instead, types are to be set, through the property, *type*.
+
+* 180206
+
+  * 1122  Decided not to use groups. As providers could be used, instead and as it complicates the structure.
+  * 1428  Decided to rename the attribute, *type* as *class*, so that the syntax can be a superset of JSON Schema.
+  * 1552  Decided not to use slashes, instead of dots as class separators. The idea was to allow for importing modules, from global packages, even when the local has some with the same name. ie: /package would mean a global import, where as package would mean a local import, when available. The decision is to avoid name possible confusions, which could lead to bug hunting.
 
 Log
 ---

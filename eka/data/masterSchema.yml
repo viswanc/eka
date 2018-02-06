@@ -12,12 +12,14 @@ definitions:
     providers:
       type: [string, array]
 
-  app:
+  expression: {}
+
+  rest.app:
     allOf:
       - $ref: '#/definitions/providable'
       - type: object
         properties:
-          type:
+          class:
             # #Note: The key, const isn't available in draft 4.
             enum: [app]
             default: app
@@ -26,17 +28,17 @@ definitions:
             patternProperties:
               '^([A-z0-9_-])+$':
                 anyOf:
-                  - $ref: '#/definitions/app.client'
-                  - $ref: '#/definitions/app.server'
+                  - $ref: '#/definitions/rest.client'
+                  - $ref: '#/definitions/rest.server'
 
-  app.client:
+  rest.client: # #Note: Nested definitions (like app/client) aren't used, as it complicates the schema.
     allOf:
       - $ref: '#/definitions/providable'
       - type: object
         properties:
-          type:
-            enum: [app.client]
-            default: app.client
+          class:
+            enum: [rest.client]
+            default: rest.client
           buildBase:
             type: string
           uiRoot:
@@ -45,26 +47,26 @@ definitions:
             type: object
             patternProperties:
               '^([A-z0-9_-])+$':
-                $ref: '#/definitions/app.client.element'
+                $ref: '#/definitions/rest.client.element'
 
-  app.client.element:
+  rest.client.element:
       allOf:
         - $ref: '#/definitions/providable'
         - type: object
           properties:
-            type:
-              enum: [app.client.element]
-              default: app.client.element
+            class:
+              enum: [rest.client.element]
+              default: rest.client.element
             value:
               type: string
             props:
               patternProperties:
                 '^([A-z0-9_-])+$':
                   anyOf:
-                    - $ref: '#/definitions/app.client.element'
-                    - $ref: '#/definitions/app.client.element.button'
+                    - $ref: '#/definitions/rest.client.element'
+                    - $ref: '#/definitions/rest.client.element.button'
 
-  app.client.element.button:
+  rest.client.element.button:
     allOf:
       - $ref: '#/definitions/providable'
       - type: object
@@ -73,18 +75,18 @@ definitions:
             type: string
           action:
             type: string
-          type:
-            enum: [app.client.element.button]
-            default: app.client.element.button
+          class:
+            enum: [rest.client.element.button]
+            default: rest.client.element.button
 
-  app.server:
+  rest.server:
     allOf:
       - $ref: '#/definitions/providable'
       - type: object
         properties:
-          type:
-            enum: [app.server]
-            default: app.server
+          class:
+            enum: [rest.server]
+            default: rest.server
           builder:
             type: string
           buildBase:
@@ -93,16 +95,16 @@ definitions:
             type: object
             patternProperties:
               '^([A-z0-9_-])+$':
-                $ref: '#/definitions/app.server.resource'
+                $ref: '#/definitions/rest.server.resource'
 
-  app.server.resource:
+  rest.server.resource:
     allOf:
       - $ref: '#/definitions/providable'
       - type: object
         properties:
-          type:
-            enum: [app.server.resource]
-            default: app.server.resource
+          class:
+            enum: [rest.server.resource]
+            default: rest.server.resource
           permissions:
             type: string
             default: crud
@@ -111,18 +113,18 @@ definitions:
             type: object
             patternProperties:
               '^([A-z0-9_-])+$':
-                $ref: '#/definitions/app.server.resource.field'
+                $ref: '#/definitions/rest.server.resource.field'
 
-  app.server.resource.field:
+  rest.server.resource.field:
       allOf:
         - $ref: '#/definitions/providable'
         - anyOf:
           - type: [integer, string]
           - type: object
             properties:
-                type:
-                  enum: [app.server.resource.field]
-                  default: app.server.resource.field
+                class:
+                  enum: [rest.server.resource.field]
+                  default: rest.server.resource.field
                 value:
                   type: [integer, string]
 
@@ -130,8 +132,7 @@ properties:
   props:
     type: object
     patternProperties:
-      '^([A-z0-9_-])+$':
-        $ref: '#/definitions/app'
-  type:
+      '^([A-z0-9_-])+$': {}
+  class:
     enum: [master]
     default: master
