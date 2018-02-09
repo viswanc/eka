@@ -100,3 +100,7 @@ Log
 
   * 1840  Introduced commands (parse and build, instead of build as default), to ease development.
   * 2125  Started using the masterSchema, to modify the structure (for setting default values).
+
+* 180209
+
+  * 1400  Added the license (MIT).
