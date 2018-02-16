@@ -9,10 +9,13 @@ from eka import state
 from eka.classes.ymlParser import ymlParser
 from eka.helpers import readFile, writeFile
 
-# Data
-builderDir = abspath(dirname(__file__) + '/../builders')
-
 # Helpers
+def loadBuilder(builderName):
+  import pkg_resources
+
+  prefix = 'eka.plugins.builders'
+  return pkg_resources.load_entry_point('%s.%s' % (prefix, builderName), prefix, builderName)
+
 def resolveBuilder(builderType):
   return getattr(import_module('eka.classes.builders.' + builderType), builderType + 'Builder')()
 
@@ -26,20 +29,21 @@ class Builder(object):
         self.buildComponent(Component)
 
   def buildComponent(self, Component):
-    builderName = Component.get('builder')
+    builderName = Component.get('builder') # #ToDo: Fix the builder logic.
 
     if not builderName:
       return
 
-    builderBase = '%s/%s' % (builderDir, builderName)
-    configFile = '%s/config.yml' % builderBase
+    builderDir = dirname(loadBuilder(builderName).__file__)
+
+    configFile = '%s/config.yml' % builderDir
 
     if not exists(configFile):
       return
 
     Config = ymlParser(configFile).getConfig()
     Builder = resolveBuilder(Config['type'])
-    builtSource = Builder.build(readFile('%s/%s' % (builderBase, Config['base'])), Component)
+    builtSource = Builder.build(readFile('%s/%s' % (builderDir, Config['base'])), Component)
 
     buildTarget = '%s/.build/%s' % (state.projectRoot, Component['buildBase'])
     srcDir = '%s/src' % buildTarget
@@ -48,7 +52,7 @@ class Builder(object):
 
     if exists(buildTarget):
       rmtree(buildTarget)
-    copytree('%s/res' % builderBase, buildTarget)
+    copytree('%s/res' % builderDir, buildTarget)
     mkdir(srcDir)
 
     writeFile('%s/main.py' % srcDir, builtSource)

@@ -1,9 +1,0 @@
-import falcon
-api = falcon.API()
-{% for name, prop in props.iteritems() %}
-class {{ name }}:
-  def on_get(self, req, resp):
-    resp.media = '{{ name }}'
-
-api.add_route('/{{ name }}', {{ name }}())
-{% endfor %}

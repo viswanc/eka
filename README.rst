@@ -104,3 +104,12 @@ Log
 * 180209
 
   * 1400  Added the license (MIT).
+
+* 180214
+
+  * 0605  Removed the builders dir, as per the plan to have builders as plugins.
+
+* 180216
+
+  * 0509  Added the module utils.plugins, to help with building plugins.
+  * 0555  Extracted out the falcon builder, as a plugin.
