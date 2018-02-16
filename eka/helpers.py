@@ -9,12 +9,16 @@ from eka import state
 # Exports
 ## FileSys
 def readFile(filePath):
-	with io.open(filePath, 'r', encoding='utf8') as f:
-		return f.read()
+  with io.open(filePath, 'r', encoding='utf8') as f:
+    return f.read()
 
 def writeFile(filePath, data):
-	with io.open(filePath, 'w', encoding='utf8') as f:
-		f.write(unicode(data))
+  with io.open(filePath, 'w', encoding='utf8') as f:
+    f.write(unicode(data))
+
+def createTempDir():
+  import tempfile
+  return tempfile.mkdtemp()
 
 ## Utils
 def merge(*Dicts):

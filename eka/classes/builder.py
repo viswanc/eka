@@ -1,13 +1,12 @@
 r"""
 The master builder.
 """
-from os import mkdir
-from os.path import abspath, dirname, exists
+
+from os import rename, makedirs
+from os.path import dirname, exists
 from importlib import import_module
 
 from eka import state
-from eka.classes.ymlParser import ymlParser
-from eka.helpers import readFile, writeFile
 
 # Helpers
 def loadBuilder(builderName):
@@ -29,30 +28,21 @@ class Builder(object):
         self.buildComponent(Component)
 
   def buildComponent(self, Component):
-    builderName = Component.get('builder') # #ToDo: Fix the builder logic.
+    builderName = Component.get('builder') # #ToDo: Use class based builders, instead.
 
     if not builderName:
       return
 
-    builderDir = dirname(loadBuilder(builderName).__file__)
+    Builder = loadBuilder(builderName)
+    builtDir = Builder.build(Component)
+    targetDir = '%s/.build/%s' % (state.projectRoot, Component['buildBase'])
+    targetParent = dirname(targetDir)
 
-    configFile = '%s/config.yml' % builderDir
+    if not exists(targetParent):
+      makedirs(targetParent)
 
-    if not exists(configFile):
-      return
+    elif exists(targetDir):
+      from shutil import rmtree
+      rmtree(targetDir)
 
-    Config = ymlParser(configFile).getConfig()
-    Builder = resolveBuilder(Config['type'])
-    builtSource = Builder.build(readFile('%s/%s' % (builderDir, Config['base'])), Component)
-
-    buildTarget = '%s/.build/%s' % (state.projectRoot, Component['buildBase'])
-    srcDir = '%s/src' % buildTarget
-
-    from shutil import copytree, rmtree
-
-    if exists(buildTarget):
-      rmtree(buildTarget)
-    copytree('%s/res' % builderDir, buildTarget)
-    mkdir(srcDir)
-
-    writeFile('%s/main.py' % srcDir, builtSource)
+    rename(builtDir, targetDir) # #ToDo: Fix: This might not work across volumes.
