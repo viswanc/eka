@@ -19,7 +19,7 @@ def setupBuilder(builderModule, requirements=None, test_requirements=None):
     author_email=getattr(builderModule, '__email__') or 'UNKNOWN',
     description=doc,
     long_description=doc,
-    keywords= (getattr(builderModule, '__keywords__') or '') + ' builder eka plugin',
+    keywords=(getattr(builderModule, '__keywords__') or '') + ' builder eka plugin',
     platforms='any',
     packages=[moduleName],
     include_package_data=True,

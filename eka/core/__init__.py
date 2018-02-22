@@ -1,11 +1,11 @@
 r"""
 Eka - Core.
 """
-from os.path import abspath, dirname, isdir, isfile
+from os.path import dirname, isdir, isfile
 
 from eka import state
 from eka.helpers import debug
-from eka.classes.master import master
+from eka.core.plugin_classes import getPluginClass
 from eka.classes.treeParser import treeParser
 from eka.classes.ymlParser import ymlParser
 
@@ -22,14 +22,12 @@ def load(targetPath):
       raise Exception('File not found: %s' % targetPath)
 
   state.projectRoot = dirname(targetPath)
-  return debug(master(treeParser(targetPath, '.').getConfig()).getStructure(), True)
+  Config = treeParser(targetPath, '.').getConfig()
+  return debug(getPluginClass('master')(Config['structure'], Config['Scopes']).Structure, True)
 
 # Commands
 def parse(targetPath, silent=False):
-  from eka.classes.jsonSchemaExtender import ExtendedDraft4Validator
-
   Data = load(targetPath)
-  ExtendedDraft4Validator(ymlParser('%s/data/masterSchema.yml' % dirname(abspath(__file__))).getConfig()).validate(Data)
 
   if not silent:
     print ymlParser().getDump(Data)

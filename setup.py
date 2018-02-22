@@ -40,7 +40,8 @@ setup(
   entry_points={
     'eka.plugins.classes': [
 
-      'rest.server=p1:make_jpeg_image_plugin',
+      'rest.server=eka.plugins.classes.RestServer',
+      'rest.client=eka.plugins.classes.RestClient',
     ]
   }
 )

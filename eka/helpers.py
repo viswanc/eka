@@ -28,7 +28,7 @@ def merge(*Dicts):
       target = Base.get(k)
 
       if hasattr(target, 'iteritems') and hasattr(v, 'iteritems'):
-        Base[k] = merge(target, v)
+        Base[k] = merge({}, target, v)
       else:
         Base[k] = v
 

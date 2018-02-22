@@ -2,13 +2,13 @@ r"""
 A class to import config from YAML files.
 """
 import io
-import yaml
 from collections import OrderedDict
+import yaml
 
 # Init
 # YAML Ordered dicts loading and dumping.
 # #From: https://stackoverflow.com/questions/5121931/in-python-how-can-you-load-yaml-mappings-as-ordereddicts/21048064
-class OrderedLoader(yaml.SafeLoader):
+class OrderedLoader(yaml.SafeLoader): #pylint: disable=R0901
   pass
 
 def construct_mapping(loader, node):
@@ -17,7 +17,7 @@ def construct_mapping(loader, node):
 
 OrderedLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, construct_mapping)
 
-class OrderedDumper(yaml.SafeDumper):
+class OrderedDumper(yaml.SafeDumper): #pylint: disable=R0901
   pass
 
 def _dict_representer(dumper, data):
@@ -26,6 +26,9 @@ def _dict_representer(dumper, data):
 OrderedDumper.add_representer(OrderedDict, _dict_representer)
 
 # Exports
+def parseYML(uniStr):
+  return yaml.load(uniStr, OrderedLoader) or {}
+
 class ymlParser(object):
   def __init__(self, filePath=None):
     if filePath:
