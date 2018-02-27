@@ -2,9 +2,9 @@ r"""
 The master builder.
 """
 
-from os import rename, makedirs
-from os.path import dirname, exists
+from os import rename
 
+from laufire.filesys import ensureParent, removePath
 from eka import state
 
 class Builder(object):
@@ -18,13 +18,7 @@ class Builder(object):
       return
 
     targetDir = '%s/.build/%s' % (state.projectRoot, self.Node.Structure['buildBase'])
-    targetParent = dirname(targetDir)
-
-    if not exists(targetParent):
-      makedirs(targetParent)
-
-    elif exists(targetDir):
-      from shutil import rmtree
-      rmtree(targetDir)
+    ensureParent(targetDir)
+    removePath(targetDir)
 
     rename(builtDir, targetDir) # #ToDo: Fix: This might not work across volumes.

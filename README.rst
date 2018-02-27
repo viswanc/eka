@@ -122,3 +122,4 @@ Log
 * 180227
 
   * 1430  Introduced class based builders.
+  * 2113  Improved the jinja builder, well enough to support dumb clients.
