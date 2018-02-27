@@ -1,6 +1,8 @@
 r"""
 The base class for other property parsers to depend upon.
 """
+
+from eka.classes.builder import Builder
 from eka.classes.jsonSchemaExtender import ExtendedDraft4Validator
 from eka.classes.ymlParser import parseYML
 from eka.helpers import merge
@@ -35,6 +37,7 @@ class node(object):
   def __init__(self, Structure, Scopes=None, SchemaExtensions=None):
     self.Structure = Structure
     self.Scopes = Scopes
+    self.Props = {}
     self.standardizeProperties()
 
     if not hasattr(Structure, 'iteritems'):
@@ -50,10 +53,13 @@ class node(object):
 
     self.parse()
 
-    Props = self.Structure.get('props', {})
+    PropStructures = self.Structure.get('props', {})
+    Props = self.Props
 
-    for name, Prop in Props.iteritems():
-      Props[name] = getPluginClass(Prop['class'])(Prop, self.Scopes).Structure
+    for name, PropStructure in PropStructures.iteritems():
+      Prop = getPluginClass(PropStructure['class'])(PropStructure, self.Scopes)
+      Props[name] = Prop
+      PropStructures[name] = Prop.Structure
 
   def standardizeProperties(self):
     pass
@@ -62,10 +68,8 @@ class node(object):
     ExtendedDraft4Validator(self.__schema__).validate(self.Structure)
 
   def build(self):
-    Props = self.Structure.get('props', {})
-
-    for Prop in Props.values():
-      Prop.build()
+    for Prop in self.Props.values():
+      Builder(Prop).build()
 
 # Late Imports
-from eka.core.plugin_classes import getPluginClass
+from eka.plugins import getPluginClass

@@ -118,3 +118,7 @@ Log
 * 180223
 
   * 0214  Introduced plugin classes.
+
+* 180227
+
+  * 1430  Introduced class based builders.

@@ -4,7 +4,7 @@ The plugin class, rest.server.
 from eka.classes.node import node
 from eka.classes.ymlParser import parseYML
 from eka.helpers import isMap
-from eka.core.plugin_classes import define
+from eka.plugins import define
 
 # Data
 Definitions = parseYML(r"""

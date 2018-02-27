@@ -2,24 +2,24 @@ r"""
 Plugin utils.
 """
 
-def setupBuilder(builderModule, requirements=None, test_requirements=None):
+def setup(pluginModule, requirements=None, test_requirements=None):
   from setuptools import setup
 
-  doc = getattr(builderModule, '__doc__') or ''
-  moduleName = builderModule.__name__
-  pluginName = builderModule.__plugin_name__
+  doc = getattr(pluginModule, '__doc__') or ''
+  moduleName = pluginModule.__name__
+  pluginName = pluginModule.__plugin_name__
 
   setup(
-    name='eka.plugins.builders.' + pluginName,
+    name='eka.plugins.classes.' + pluginName,
     url='',
     download_url='',
     license='MIT',
-    version=getattr(builderModule, '__version__') or 'UNKNOWN',
-    author=getattr(builderModule, '__author__') or 'UNKNOWN',
-    author_email=getattr(builderModule, '__email__') or 'UNKNOWN',
+    version=getattr(pluginModule, '__version__') or 'UNKNOWN',
+    author=getattr(pluginModule, '__author__') or 'UNKNOWN',
+    author_email=getattr(pluginModule, '__email__') or 'UNKNOWN',
     description=doc,
     long_description=doc,
-    keywords=(getattr(builderModule, '__keywords__') or '') + ' builder eka plugin',
+    keywords=(getattr(pluginModule, '__keywords__') or '') + ' builder eka plugin',
     platforms='any',
     packages=[moduleName],
     include_package_data=True,
@@ -28,10 +28,9 @@ def setupBuilder(builderModule, requirements=None, test_requirements=None):
     test_suite='tests',
     tests_require=test_requirements or [],
     zip_safe=False,
-
     entry_points={
 
-      'eka.plugins.builders': [
+      'eka.plugins.classes': [
 
          pluginName + '=' + moduleName,
       ]

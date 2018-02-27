@@ -4,38 +4,20 @@ The master builder.
 
 from os import rename, makedirs
 from os.path import dirname, exists
-from importlib import import_module
 
 from eka import state
 
-# Helpers
-def loadBuilder(builderName):
-  import pkg_resources
-
-  prefix = 'eka.plugins.builders'
-  return pkg_resources.load_entry_point('%s.%s' % (prefix, builderName), prefix, builderName)
-
-def resolveBuilder(builderType):
-  return getattr(import_module('eka.classes.builders.' + builderType), builderType + 'Builder')()
-
 class Builder(object):
-  def __init__(self, Structure):
-    self.Structure = Structure
+  def __init__(self, Node):
+    self.Node = Node
 
   def build(self):
-    for App in self.Structure['props'].values():
-      for Component in App['props'].values():
-        self.buildComponent(Component)
+    builtDir = self.Node.build()
 
-  def buildComponent(self, Component):
-    builderName = Component.get('builder') # #ToDo: Use class based builders, instead.
-
-    if not builderName:
+    if not builtDir:
       return
 
-    Builder = loadBuilder(builderName)
-    builtDir = Builder.build(Component)
-    targetDir = '%s/.build/%s' % (state.projectRoot, Component['buildBase'])
+    targetDir = '%s/.build/%s' % (state.projectRoot, self.Node.Structure['buildBase'])
     targetParent = dirname(targetDir)
 
     if not exists(targetParent):

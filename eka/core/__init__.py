@@ -5,7 +5,7 @@ from os.path import dirname, isdir, isfile
 
 from eka import state
 from eka.helpers import debug
-from eka.core.plugin_classes import getPluginClass
+from eka.plugins import getPluginClass
 from eka.classes.treeParser import treeParser
 from eka.classes.ymlParser import ymlParser
 
@@ -22,21 +22,21 @@ def load(targetPath):
       raise Exception('File not found: %s' % targetPath)
 
   state.projectRoot = dirname(targetPath)
-  Config = treeParser(targetPath, '.').getConfig()
-  return debug(getPluginClass('master')(Config['structure'], Config['Scopes']).Structure, True)
+
+  return treeParser(targetPath, '.').getConfig()
 
 # Commands
 def parse(targetPath, silent=False):
-  Data = load(targetPath)
+  Config = load(targetPath)
+  Master = getPluginClass('master')(Config['structure'], Config['Scopes'])
 
   if not silent:
-    print ymlParser().getDump(Data)
+    print ymlParser().getDump(Master.Structure)
 
-  return Data
+  return Master
 
 def build(targetPath):
-  from eka.classes.builder import Builder
-  Builder(parse(targetPath, True)).build()
+  parse(targetPath, True).build()
 
 # Exports
 def init(Argv):
