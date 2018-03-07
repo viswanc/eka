@@ -2,7 +2,6 @@ r"""
 The root of all plugin classes.
 """
 from eka.classes.ymlParser import parseYML
-from eka.core.data import Plugins
 
 # State
 __Plugins__ = {}
@@ -50,7 +49,7 @@ class master(node):
     for appName, App in self.Structure.get('props', {}).iteritems():
       for componentName, Component in App.get('props', {}).iteritems():
         if not 'buildBase' in Component:
-          Component['buildBase'] = '%s/%s' % (appName, componentName)
+          Component['buildBase'] = '.build/%s/%s' % (appName, componentName)
 
 @define('rest.app')
 class app(node):
@@ -71,3 +70,6 @@ class app(node):
               patternProperties:
                 '^([A-z0-9_-])+$': {}
     """))
+
+# Late imports
+from eka.core.data import Plugins

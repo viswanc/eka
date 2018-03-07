@@ -15,4 +15,9 @@ structure:
 
         server:
           providers: server
-          class: rest.server.falcon
+          class: crud.app
+          builder:
+            class: rest.server.falcon
+            store:
+              class: python.crud.store.sqlalchemy
+              engine: 'sqlite:///data.db'

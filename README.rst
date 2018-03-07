@@ -42,6 +42,14 @@ Decisions
   * 1428  Decided to rename the attribute, *type* as *class*, so that the syntax can be a superset of JSON Schema.
   * 1552  Decided not to use slashes, instead of dots as class separators. The idea was to allow for importing modules, from global packages, even when the local has some with the same name. ie: /package would mean a global import, where as package would mean a local import, when available. The decision is to avoid name possible confusions, which could lead to bug hunting.
 
+* 180305
+
+  * 2203  Decided to extend JSON Schema, beyond the draft specifications, so to simplify it where possible. The resulting schema would be a superset of draft 4.
+
+* 180306
+
+  * 1726  Decided to bring back config based builders, instead of the newly implemented class based builders, so to promote object composition and interfaces over inheritance. This is also to make the structures more versatile.
+
 Log
 ---
 
@@ -123,3 +131,21 @@ Log
 
   * 1430  Introduced class based builders.
   * 2113  Improved the jinja builder, well enough to support dumb clients.
+
+* 180228
+
+  * 1513  Renamed the plugin rest.server to crud.app.
+
+* 180305
+
+  * 1154  Introduced the property, name.
+  * 2000  Conceived the concept of using pipes (for abstraction, rather than as syntax), thus forks, queues etc.
+  * 2203  Redid the parsing of the property, default.
+
+* 180306
+
+  * 1853  Reverted back to property based builders, from class based builders.
+
+* 180307
+
+  * 1840  Restructured to better the support for plugins.

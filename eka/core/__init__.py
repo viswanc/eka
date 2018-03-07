@@ -4,8 +4,6 @@ Eka - Core.
 from os.path import dirname, isdir, isfile
 
 from eka import state
-from eka.helpers import debug
-from eka.plugins import getPluginClass
 from eka.classes.treeParser import treeParser
 from eka.classes.ymlParser import ymlParser
 
@@ -51,3 +49,6 @@ def init(Argv):
 
   elif command == 'parse':
     parse(targetPath)
+
+# Late imports
+from eka.plugins import getPluginClass

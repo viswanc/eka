@@ -26,8 +26,21 @@ class node(object):
 
   definitions:
     providable:
-      providers:
-        type: [string, array]
+      properties:
+        providers:
+          type: [string, array]
+
+    object:
+      properties:
+        class:
+          type: string
+          pattern: '^[A-z\.]+$'
+          required: true
+
+    config:
+      allOff:
+        - $ref: '#/definitions/providable'
+        - $ref: '#/definitions/object'
 
     expression: {}
 
@@ -57,6 +70,7 @@ class node(object):
     Props = self.Props
 
     for name, PropStructure in PropStructures.iteritems():
+      PropStructure.setdefault('name', name)
       Prop = getPluginClass(PropStructure['class'])(PropStructure, self.Scopes)
       Props[name] = Prop
       PropStructures[name] = Prop.Structure

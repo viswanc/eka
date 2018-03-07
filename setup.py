@@ -38,9 +38,9 @@ setup(
   tests_require=test_requirements,
 
   entry_points={
-    'eka.plugins.classes': [
+    'eka.plugins.classes': [ # #Later: Automate plugin collection.
 
-      'rest.server=eka.plugins.classes.RestServer',
+      'crud.app=eka.plugins.classes.parsers.crudApp',
       'rest.client=eka.plugins.classes.RestClient',
     ]
   }

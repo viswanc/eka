@@ -2,6 +2,7 @@ r"""
 Extensions over JSON Schema's validator, to allow for mutations, like default values etc.
 """
 from jsonschema import Draft4Validator, validators
+from jsonschema.exceptions import ValidationError
 
 # Helpers
 def extend(validator_class):
@@ -14,12 +15,15 @@ def extend(validator_class):
         return
 
       if 'default' in subschema:
-        # instance.setdefault(property, subschema['default']) # #Note: This makes the first default to be chosen. The issue is that, it fails to process the anyOf directives properly.
-        instance[property] = subschema['default']
+        instance.setdefault(property, subschema['default'])
 
-    for error in validate_properties(
-      validator, properties, instance, schema,
-    ):
+      elif 'required' in subschema and type(subschema['required']) == bool: # #Note: This is the extension, which overrideds the property required, to use booleans on self, rathen than a list for the properties children.
+        required = subschema['required']
+        del subschema['required']
+        if required and not property in instance:
+          yield ValidationError('Required property \'%s\' is not provided' % property, instance=isinstance, schema=subschema)
+
+    for error in validate_properties(validator, properties, instance, schema):
       yield error
 
   return validators.extend(
