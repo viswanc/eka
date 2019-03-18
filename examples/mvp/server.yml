@@ -3,6 +3,11 @@ structure:
   props:
     sum:
       props:
-        num1: 1
-        num2: {}
-        result: num1 + num2
+        num1:
+          value: 1 # This is the default value for the prop.
+          type: number
+        num2:
+          type: number
+        result:
+          value: num1 + num2
+          persist: false
